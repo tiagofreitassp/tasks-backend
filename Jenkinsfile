@@ -18,8 +18,10 @@ pipeline {
         }
         stage ('API Test'){
             steps {
-                git credentialsId: 'GitTiago', url: 'https://github.com/tiagofreitassp/tasks-api-test'
-                sh 'mvn test'
+                dir('api-test') {
+                    git credentialsId: 'GitTiago', url: 'https://github.com/tiagofreitassp/tasks-api-test'
+                    sh 'mvn test'
+                }
             }
         }
     }
