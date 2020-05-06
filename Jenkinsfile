@@ -24,5 +24,14 @@ pipeline {
                 }
             }
         }
+        stage ('Deploy Frontend') {
+            steps {
+                dir('frontend') {
+                    git credentialsId: 'GitTiago', url: 'https://github.com/tiagofreitassp/tasks-frontend'
+                    sh 'mvn clean package -DskipTests=true'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+            }
+        }
     }
 }
