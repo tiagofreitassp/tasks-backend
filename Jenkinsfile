@@ -33,5 +33,13 @@ pipeline {
                 }
             }
         }
+        stage ('Functional Test'){
+            steps {
+                dir('functional-test') {
+                    git credentialsId: 'GitTiago', url: 'https://github.com/tiagofreitassp/tasks-functional-tests'
+                    sh 'mvn test'
+                }
+            }
+        }
     }
 }
